@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="lt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mano Motyvacinis Laiškas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- SVG FILTRAS REALISTIŠKOMS TEKSTŪROMS -->
+    <svg style="display: none;">
+        <defs>
+            <filter id="realistic-noise">
+                <!-- Generuoja fraktalinį triukšmą (debesų/kalnų struktūrą) -->
+                <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
+                <!-- Iškraipo vaizdą pagal triukšmą -->
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="40" />
+            </filter>
+        </defs>
+    </svg>
+
+    <div class="space-background"></div>
+    <div class="stars"></div>
+
+
+    <div id="main-window" class="container">
+        <header>
+            <h1 class="main-title">KODĖL?</h1>
+            <h2>Visi atsakymai žemiau :)</h2>
+        </header>
+
+        <main class="grid-layout">
+
+
+            <section class="glass-card" onclick="openPage('about-page')">
+                <div class="icon">🌍</div>
+                <h2>Kas aš esu?</h2>
+                <p>Spausk, kad sužinotum...</p>
+            </section>
+
+            <section class="glass-card" onclick="openPage('motivation-page')">
+                <div class="icon">🪐</div>
+                <h2>Mano požiūris</h2>
+                <p>Spausk, kad sužinotum daugiau...</p>
+            </section>
+
+            <section class="glass-card" onclick="openPage('challenges-page')">
+                <div class="icon">☄️</div>
+                <h2>Patirtis</h2>
+                <p>Spausk, kad sužinotum daugiau...</p>
+            </section>
+
+            <section class="glass-card" onclick="openPage('experience-page')">
+                <div class="icon">💥</div>
+                <h2>Ateities vizija</h2>
+                <p>Spausk, kad sužinotum daugiau...</p>
+            </section>
+
+
+
+        </main>
+    </div>
+
+    <!-- 1. ŽEMĖ (Apie mane) -->
+    <div id="about-page" class="sub-page">
+        <button class="back-arrow" onclick="goBack()">←</button>
+        <div class="split-content">
+            <div class="text-side">
+                <h1 class="gravitas-title">Kas aš esu?</h1>
+                <div class="divider"></div>
+                <p>
+                </p>
+                <p>Esu smalsi ir šiek tiek užsispyrusi – mano kasdienybė sukasi aplink tiksliuosius mokslus ir siekį
+                    suprasti, kaip veikia šis pasaulis. Save apibūdinčiau kaip kūrybišką žmogų, kuriam verslumas yra
+                    būdas įgalinti ir skleisti savo idėjas.</p>
+            </div>
+            <div class="visual-side">
+                <div class="big-planet planet-earth"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. MARSAS (Įgūdžiai) -->
+    <div id="challenges-page" class="sub-page">
+        <button class="back-arrow" onclick="goBack()">←</button>
+        <div class="split-content">
+            <div class="text-side">
+                <h1 class="gravitas-title">Šiek tiek priešistorės:</h1>
+                <div class="divider"></div>
+                <p>Savo kelią pradėjau nuo papildomo domėjimosi tiksliaisiais mokslais ir teorijos pritaikymo
+                    olimpiadose.
+                    Tai išugdė poreikį ne aklai kalti, o perprasti kiekvieną sistemą.
+                    Sukauptas žinias vėliau perkėliau į technologijų sritį, kurioje mokiausi integruoti dirbtinio
+                    intelekto
+                    galimybes. Pavyzdžiui, šią aplikaciją kūriau kaip eksperimentą, valdydama HTML, CSS, JS kodą
+                    naudodama
+                    DI (kaip Gemini per Antigravity) įrankių pagalbą. Gebėjimą valdyti šias technologijas laikiau
+                    svarbiausia patirtimi,
+                    leidusia teorines įžvalgas paversti pirmaisiais bandymais. </p>
+
+            </div>
+            <div class="visual-side">
+                <div class="big-planet planet-mars"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. SATURNAS (Požiūris) -->
+    <div id="motivation-page" class="sub-page">
+        <button class="back-arrow" onclick="goBack()">←</button>
+        <div class="split-content">
+            <div class="text-side">
+                <h1 class="gravitas-title"> Tai kas mane veda į priekį: </h1>
+                <div class="divider"></div>
+
+                <p class="quote">"Žinoti nepakanka, reikia žinias pritaikyti. Norėti nepakanka, reikia daryti." -
+                    Leonardas da Vinčis</p>
+
+                <p class="quote">"Svarbu ne tai, ką gavome gimdami, o tai, kaip panaudojame tai, ką turime." —
+                    Alfredas Adleris</p>
+
+                <p class="quote">„Jei nori eiti greitai – eik vienas. Jei nori nueiti toli – eik kartu.“ – Afrikiečių
+                    patarlė</p>
+
+            </div>
+            <div class="visual-side">
+                <div class="saturn-wrapper">
+                    <div class="saturn-rings"></div>
+                    <div class="big-planet planet-saturn"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. LEDINIS MILŽINAS (Patirtis) -->
+    <div id="experience-page" class="sub-page">
+        <button class="back-arrow" onclick="goBack()">←</button>
+        <div class="split-content">
+            <div class="text-side">
+                <h1 class="gravitas-title">Kodel ši stovykla?</h1>
+                <div class="divider"></div>
+                <p>Noriu išgirsti realias Lietuvos įmonių patirtis ir plačiau suprasti, kaip technologijų bei verslo
+                    pasaulis veikia realybėje. Šią stovyklą matau kaip galimybę susipažinti su bendraminčiais, su
+                    kuriais galėčiau dalintis idėjomis ir kurti bendrus sprendimus.</p>
+                <p class="quotem">Manau, kad stovykla „Ateities Vizionieriai 2026“ yra puiki vieta šiems tikslams
+                    įgyvendinti.</p>
+            </div>
+            <div class="visual-side">
+                <div class="big-planet planet-ice"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+
+
+    <div class="astronaut-fixed-wrapper">
+        <div class="astronaut">
+            <div class="backpack"></div>
+            <div class="body"></div>
+            <div class="leg left"></div>
+            <div class="leg right"></div>
+            <div class="arm left"></div>
+            <div class="arm right"></div>
+            <div class="helmet">
+                <div class="visor">
+                    <div class="reflection"></div>
+                </div>
+            </div>
+            <div class="belt-box">
+                <div class="button"></div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

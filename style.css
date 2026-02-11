@@ -1,0 +1,818 @@
+/* 1. BAZINIAI NUSTATYMAI */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #050510;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+/* 2. KOSMOSO FONAS (Pagrindiniame ekrane) */
+.space-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1506318137071-a8e063b4b519?q=80&w=2070&auto=format&fit=crop') no-repeat center;
+    background-size: cover;
+    z-index: -2;
+    filter: brightness(0.8);
+}
+
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1000%;
+    height: 1000%;
+    background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+    z-index: -1;
+    animation: move-stars 70s linear infinite;
+    opacity: 0.9;
+}
+
+@keyframes move-stars {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(-25%, -25%);
+    }
+}
+
+/* 3. PAGRINDINIS KONTEINERIS (Kortelės) */
+.container {
+    max-width: 1300px;
+    margin: 120px auto;
+    text-align: center;
+    transition: all 0.5s ease;
+}
+
+.main-title {
+    font-family: 'Gravitas One', cursive;
+    font-size: 3.5rem;
+    margin-bottom: 40px;
+    background: linear-gradient(to right, #fff, #4facfe);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Surask šią vietą apie 60-tą eilutę */
+.grid-layout {
+    display: flex;
+    /* Pakeista iš grid į flex */
+    flex-wrap: wrap;
+    /* Leidžia blokeliams nukristi į kitą eilutę */
+    justify-content: center;
+    /* Centruoja blokelius (ypač apatinius du) */
+    gap: 30px;
+    padding: 20px;
+}
+
+.glass-card {
+    /* Pridėk šias eilutes prie esamo glass-card stiliaus */
+    flex: 0 1 calc(33.333% - 40px);
+    /* Nurodo užimti 1/3 pločio minus tarpai */
+    min-width: 280px;
+    /* Neleidžia per daug susitraukti */
+
+    /* Tavo kiti stiliai (background, border, padding) lieka tokie patys */
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    padding: 40px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.glass-card:hover {
+    transform: translateY(-10px);
+    border-color: #4facfe;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* 4. "FLOATING" POLANGIAI (SUB-PAGES) */
+.sub-page {
+    position: fixed;
+    top: 5vh;
+    /* Tarpas nuo viršaus */
+    left: 5vw;
+    /* Tarpas nuo kairės */
+    width: 90vw;
+    height: 90vh;
+    background: #050814;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    z-index: 1000;
+    display: none;
+    /* Valdoma per JS */
+    overflow: hidden;
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.9);
+}
+
+/* Atsidarymo animacija */
+.sub-page.fade-in {
+    display: flex !important;
+    animation: floatingFade 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes floatingFade {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.split-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* 5. TEKSTO PUSĖ */
+.text-side {
+    flex: 1.2;
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 10;
+}
+
+.gravitas-title {
+    font-family: 'Gravitas One', cursive;
+    font-size: 4.1rem;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(79, 172, 254, 0.8), 0 0 40px rgba(79, 172, 254, 0.4);
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+}
+
+.divider {
+    width: 100px;
+    height: 3px;
+    background: #4facfe;
+    margin-bottom: 40px;
+}
+
+.text-side p {
+    font-size: 1.3rem;
+    line-height: 1.9;
+    color: #cbd5e0;
+    margin-bottom: 25px;
+    max-width: 650px;
+}
+
+.quote {
+    font-style: italic;
+    color: #eeca52 !important;
+    font-size: 1.5rem !important;
+}
+
+
+.quotem {
+    font-style: italic;
+    color: #1cb7d3 !important;
+    font-size: 1.5rem !important;
+}
+
+/* 6. PLANETŲ PUSĖ (SU TEKSTŪROMIS) */
+/* 6. PLANETŲ PUSĖ (SU TEKSTŪROMIS) */
+.visual-side {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #0a1128, #050814);
+}
+
+.big-planet {
+    position: absolute;
+    width: 95vh;
+    height: 95vh;
+    border-radius: 50%;
+    right: -20%;
+    background-size: cover;
+    /* Softened generic shadow */
+    box-shadow:
+        inset -40px -40px 100px rgba(0, 0, 0, 0.8),
+        inset 10px 10px 40px rgba(255, 255, 255, 0.1);
+    transition: all 1s ease;
+}
+
+/* Common Texture Grain for ALL planets */
+.big-planet::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    /* Tiny dots texture */
+    background-image: repeating-radial-gradient(circle at 50% 50%,
+            rgba(255, 255, 255, 0.15) 0px,
+            transparent 1px,
+            transparent 3px);
+    background-size: 6px 6px;
+    opacity: 0.3;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    z-index: 2;
+}
+
+@keyframes planetRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes cloudMove {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(20px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* =========================================
+   1. EARTH 2.0 (Realistiška Žemė)
+   ========================================= */
+.planet-earth {
+    position: absolute;
+    width: 130%;
+    height: 110%;
+    /* Matches generic but localized */
+
+    background: radial-gradient(circle at 40% 40%, #004d99, #001133);
+    /* Brighter Ocean */
+    overflow: hidden;
+    box-shadow:
+        inset -50px -50px 120px #000,
+        0 0 60px rgba(64, 156, 255, 0.3);
+    animation: planetRotate 200s linear infinite;
+}
+
+.planet-earth::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+
+    background-image:
+        radial-gradient(ellipse at 60% 30%, #2ea037 5%, transparent 5%),
+        radial-gradient(ellipse at 60% 30%, #39863f 10%, transparent 5%),
+        radial-gradient(ellipse at 60% 30%, #198622 15%, transparent 5%),
+        radial-gradient(ellipse at 20% 40%, #f7f7f7 9%, transparent 14%),
+        radial-gradient(ellipse at 75% 70%, #dfdfdf 10%, transparent 15%),
+        radial-gradient(ellipse at 30% 70%, #2ea037 5%, transparent 5%),
+        radial-gradient(ellipse at 50% 70%, #39863f 10%, transparent 5%),
+        radial-gradient(ellipse at 40% 70%, #107e19 10%, transparent 5%),
+        radial-gradient(ellipse at 40% 65%, #198622 15%, transparent 5%),
+        radial-gradient(circle at 30% 70%, #33439e 0%, transparent 40%),
+        radial-gradient(circle at 20% 70%, #042e50 0%, transparent 20%),
+        radial-gradient(circle at 50% 60%, #1d62a7 0%, transparent 20%),
+        radial-gradient(ellipse at 70% 30%, #1d044b 0%, transparent 45%),
+        radial-gradient(circle at 80% 80%, #03044e 0%, transparent 35%);
+
+    filter: url(#realistic-noise) contrast(1.2);
+    opacity: 0.9;
+    mix-blend-mode: source-over;
+}
+
+/* =========================================
+   2. MARS 2.0 (Dulkėtas raudonasis)
+   ========================================= */
+.planet-mars {
+    position: absolute;
+    width: 130%;
+    height: 110%;
+
+    background: radial-gradient(circle at 30% 30%, #803d29, #bf360c, #3e2723);
+    /* Brighter Red */
+    overflow: hidden;
+    box-shadow: inset -50px -50px 120px #000, 0 0 50px rgba(90, 31, 13, 0.4);
+    animation: planetRotate 240s linear infinite;
+}
+
+.planet-mars::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+
+    background: repeating-linear-gradient(-25deg,
+            rgba(156, 102, 52, 0.753) 0%,
+            transparent 10%,
+            rgba(151, 67, 29, 0.582) 5%,
+            transparent 20%),
+
+        radial-gradient(circle at 30% 30%, #583828 0%, transparent 15%),
+        radial-gradient(circle at 40% 70%, #b86b47 0%, transparent 15%),
+        radial-gradient(circle at 80% 80%, #ffffff 30%, transparent 15%),
+        radial-gradient(circle at 10% 10%, #ffffff 40%, transparent 15%),
+        radial-gradient(circle at 70% 10%, #bcc7cc 90%, transparent 30%),
+        radial-gradient(circle at 50% 50%, #f5ece3 10%, transparent 20%);
+    filter: url(#realistic-noise) contrast(1.5);
+    mix-blend-mode: multiply;
+}
+
+/* =========================================
+   3. SATURN 2.0 (Dujų milžinas)
+   ========================================= */
+.planet-saturn {
+    position: absolute;
+    width: 130%;
+    height: 110%;
+
+    background: radial-gradient(circle at 40% 40%, #e27434, #9c8055, #cc8d68);
+    /* Golden Yellow */
+    overflow: hidden;
+    box-shadow:
+        inset -40px -40px 100px #e29999,
+        inset 0 0 30px 5px rgba(255, 235, 200, 0.4),
+        30px 0 120px rgba(226, 145, 52, 0.5),
+        0 0 80px rgba(236, 220, 165, 0.3);
+    /* Removed planetRotate, static container */
+}
+
+.planet-saturn::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(-25deg,
+            rgba(199, 169, 140, 0.753) 0%,
+            transparent 5%,
+            rgba(224, 176, 112, 0.582) 5%,
+            transparent 10%);
+    filter: url(#realistic-noise) blur(4px);
+    mix-blend-mode: hard-light;
+    background-size: 200% 100%;
+    animation: textureSpin 200s linear infinite;
+}
+
+/* =========================================
+   4. ICE GIANT (Neptūnas/Uranas mix)
+   ========================================= */
+.planet-ice {
+    position: absolute;
+    width: 130%;
+    height: 110%;
+
+    background: radial-gradient(circle at 40% 40%, #00e5ff, #0091ea, #002171);
+    overflow: hidden;
+    box-shadow:
+        inset -40px -40px 100px #dfb3b3,
+        inset 0 0 30px 5px rgba(255, 235, 200, 0.4),
+        30px 0 120px rgba(128, 224, 200, 0.884),
+        0 0 80px rgba(236, 220, 165, 0.3);
+
+}
+
+.planet-ice::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image:
+        radial-gradient(circle at 50% 50%, rgba(43, 43, 95, 0.6) 20%, transparent 40%),
+        radial-gradient(circle at 30% 20%, rgba(59, 59, 119, 0.6) 30%, transparent 32%),
+        radial-gradient(circle at 35% 50%, #011129 0%, transparent 20%),
+        radial-gradient(circle at 78% 70%, #82abbe 0%, transparent 10%),
+        radial-gradient(circle at 60% 30%, #acc3ce 5%, transparent 10%),
+        repeating-linear-gradient(-25deg,
+            rgba(153, 255, 246, 0.575) 3%,
+            transparent 5%,
+            rgba(143, 158, 167, 0.884) 7%,
+            transparent 10%);
+    filter: url(#realistic-noise) blur(1px);
+    mix-blend-mode: hard-light;
+    background-size: 200% 100%;
+    animation: textureSpin 200s linear infinite;
+}
+
+
+
+/* ŠVYTĖJIMAS UŽ PLANETOS (Suteikia erdvės pojūtį) */
+.visual-side::before {
+    content: "";
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    /* Soft white/greyish cloud color */
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.5) 0%, rgba(200, 210, 230, 0.3) 40%, transparent 70%);
+    right: -25%;
+    top: -25%;
+    z-index: 1;
+    /* The magic: Noise + Blur = Clouds */
+    filter: url(#realistic-noise) blur(20px) contrast(1.2);
+    opacity: 0.6;
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+@keyframes rotateMap {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 7. NAVIGACIJA */
+.back-arrow {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1100;
+    font-size: 1.5rem;
+    transition: 0.3s;
+}
+
+.back-arrow:hover {
+    background: #cad2d8;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.884);
+}
+
+/* 8. PELĖS ĮSPAUDŲ EFEKTAS (Pelės takas) */
+.cursor-trail {
+    position: fixed;
+    width: 6px;
+    /* Sumažinta pagal vartotojo prašymą */
+    height: 6px;
+    background: #ffffff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0 0 10px white, 0 0 20px #4facfe;
+    /* Šiek tiek mažesnis švytėjimas */
+    opacity: 1;
+    will-change: transform, opacity;
+    /* Performance optimization */
+    animation: fadeTrail 0.4s linear forwards;
+}
+
+@keyframes fadeTrail {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+}
+
+/* =========================================
+   SATURN RINGS & 3D WRAPPER
+   ========================================= */
+
+/* The wrapper positions the entire 3D system */
+.saturn-wrapper {
+    position: absolute;
+    width: 95vh;
+    height: 95vh;
+    right: -20%;
+    /* Same as original .big-planet position */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    transform: rotateZ(20deg) scale(0.9);
+    /* Tilt the planet slightly */
+    pointer-events: none;
+    /* Let clicks pass through if needed, but planet might need events? */
+}
+
+/* Adjust the planet to fit inside the wrapper */
+.saturn-wrapper .planet-saturn {
+    position: relative;
+    right: auto;
+    /* Reset the absolute right positioning */
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform: none;
+    /* We will re-apply rotation if needed, but wrapper handles tilt */
+    z-index: 2;
+    /* Ensure planet sphere is distinct for 3D context */
+    box-shadow: inset -20px -20px 80px rgba(0, 0, 0, 0.6);
+    /* Adjusted shadow */
+    pointer-events: auto;
+}
+
+/* The Rings */
+.saturn-rings {
+    position: absolute;
+    width: 240%;
+    /* Rings are wider than the planet */
+    height: 240%;
+
+    /* Center it */
+    top: -70%;
+    left: -70%;
+
+    border-radius: 50%;
+
+    /* Complex gradient for realistic rings */
+    background: radial-gradient(transparent 45%,
+            rgba(223, 173, 133, 0.685) 48%,
+            rgba(100, 80, 60, 0.5) 52%,
+            rgba(210, 180, 140, 0.8) 60%,
+            rgba(90, 70, 50, 0.6) 62%,
+            rgba(180, 160, 120, 0.6) 65%,
+            transparent 70%);
+
+    transform: rotateX(75deg);
+    /* Flatten into a disc */
+    z-index: 1;
+    pointer-events: none;
+    filter: drop-shadow(0 0 10px rgba(211, 182, 131, 0.603));
+
+    animation: ringSpin 60s linear infinite;
+}
+
+@keyframes ringSpin {
+    from {
+        transform: rotateX(75deg) rotateZ(0deg);
+    }
+
+    to {
+        transform: rotateX(75deg) rotateZ(360deg);
+    }
+}
+
+@keyframes textureSpin {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: -200% 0%;
+    }
+}
+
+
+/*AUSTRONAUTAS*/
+
+/* 1. PAGRINDINIS KONTEINERIS (KAMPUI) */
+.astronaut-fixed-wrapper {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    z-index: 2000;
+    pointer-events: none;
+    animation: floating 3s ease-in-out infinite;
+}
+
+/* 2. PERSONAŽO DYDIS IR SANTYKINĖ POZICIJA */
+.astronaut {
+    position: relative;
+    /* Tai svarbiausia eilutė, kad dalys neišsilakstytų */
+    width: 120px;
+    height: 180px;
+}
+
+/* 3. BENDRAS STILIUS DALIMS */
+.astronaut div {
+    position: absolute;
+    /* Visos dalys dabar lygiuojasi pagal .astronaut */
+    border: 4px solid #2e3073;
+    background-color: #ffffff;
+    box-sizing: border-box;
+}
+
+/* 4. KONKREČIŲ DALIŲ POZICIJOS */
+.helmet {
+    width: 110px;
+    height: 95px;
+    border-radius: 50% 50% 45% 45%;
+    top: 0;
+    left: 5px;
+    z-index: 5;
+}
+
+.visor {
+    width: 80px;
+    height: 65px;
+    background-color: #2b1d42 !important;
+    border-radius: 30%;
+    top: 10px;
+    left: 11px;
+}
+
+.body {
+    width: 80px;
+    height: 90px;
+    top: 80px;
+    left: 20px;
+    border-radius: 20px;
+    z-index: 2;
+}
+
+.arm {
+    width: 55px;
+    height: 30px;
+    top: 100px;
+    border-radius: 20px;
+    z-index: 1;
+}
+
+.arm.left {
+    left: -25px;
+    transform: rotate(-10deg);
+}
+
+.arm.right {
+    right: -25px;
+    transform: rotate(10deg);
+}
+
+.leg {
+    width: 35px;
+    height: 60px;
+    bottom: -10px;
+    border-radius: 0 0 15px 15px;
+    z-index: 1;
+}
+
+.leg.left {
+    left: 20px;
+    transform: rotate(5deg);
+}
+
+.leg.right {
+    right: 20px;
+    transform: rotate(-5deg);
+}
+
+.backpack {
+    width: 100px;
+    height: 80px;
+    top: 80px;
+    left: 10px;
+    border-radius: 10px;
+    z-index: 0;
+}
+
+.belt-box {
+    width: 40px;
+    height: 35px;
+    top: 105px;
+    left: 40px;
+    z-index: 6;
+    border-radius: 5px;
+}
+
+.button {
+    width: 10px;
+    height: 10px;
+    background-color: #00f2fe !important;
+    border-radius: 50%;
+    right: 5px;
+    top: 5px;
+    border: 2px solid #2e3073 !important;
+}
+
+/* 5. ANIMACIJA */
+@keyframes floating {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+
+/* Mobiliesiems įrenginiams (ekranams iki 768px pločio) */
+@media (max-width: 768px) {
+
+    /* Leidžiame svetainei scrollinti vertikaliai */
+    body {
+        overflow-y: auto;
+    }
+
+    .container {
+        margin: 50px auto;
+        /* Mažesnis tarpas nuo viršaus */
+        padding: 0 15px;
+    }
+
+    .main-title {
+        font-size: 2.5rem;
+        /* Mažesnis šriftas pavadinimui */
+    }
+
+    /* Blokeliai telefone bus po vieną eilutėje */
+    .grid-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .glass-card {
+        flex: 0 1 100%;
+        /* Blokelis užima visą plotį */
+        width: 100%;
+        padding: 25px;
+    }
+
+    /* Astronautas telefone turi būti mažesnis, kad neuždengtų teksto */
+    .astronaut-fixed-wrapper {
+        bottom: 10px;
+        right: 10px;
+        transform: scale(0.5);
+        /* Sumažiname per pusę */
+        transform-origin: bottom right;
+    }
+
+    /* Sub-pages (planetų langai) telefone */
+    .sub-page {
+        width: 95vw;
+        height: 95vh;
+        left: 2.5vw;
+        top: 2.5vh;
+    }
+
+    .split-content {
+        flex-direction: column;
+        /* Tekstas viršuje, planeta apačioje */
+        overflow-y: auto;
+    }
+
+    .text-side {
+        padding: 30px;
+        order: 1;
+    }
+
+    .visual-side {
+        height: 300px;
+        /* Apribojame planetos vietą */
+        order: 2;
+    }
+
+    .gravitas-title {
+        font-size: 2.5rem;
+    }
+}
+
+
+
+
+/* Subdue background glow specifically for the Alien Planet page to avoid "ball" effect */
+#future-page .visual-side::before {
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(123, 31, 162, 0.2) 0%, transparent 60%);
+    opacity: 0.3;
+    filter: blur(50px);
+}
