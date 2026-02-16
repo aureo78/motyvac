@@ -733,3 +733,139 @@ body {
     }
 
 }
+
+/* =========================================
+   RESPONSIVE DESIGN (MOBILE / TABLET)
+   ========================================= */
+
+@media screen and (max-width: 1024px) {
+    .container {
+        width: 90%;
+        margin-top: 80px;
+    }
+
+    .glass-card {
+        flex: 1 1 45%;
+        /* 2 cards per row on tablets */
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    /* 1. MAIN LAYOUT */
+    .container {
+        width: 95%;
+        margin-top: 60px;
+        padding: 0 10px;
+    }
+
+    .main-title {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+    }
+
+    .grid-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .glass-card {
+        flex: 1 1 100%;
+        /* Full width cards */
+        width: 100%;
+        max-width: 400px;
+        /* Prevent too wide on larger phones */
+    }
+
+    /* 2. SUB-PAGES (Full Screen) */
+    .sub-page {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        border-radius: 0;
+        overflow-y: auto;
+        /* Allow scrolling content */
+        z-index: 9999;
+        /* Ensure on top */
+    }
+
+    .split-content {
+        flex-direction: column;
+        /* Text first, then planet below */
+    }
+
+    /* 3. TEXT CONTENT */
+    .text-side {
+        padding: 80px 20px 40px 20px;
+        /* Top padding for back button space */
+        width: 100%;
+        flex: none;
+        /* Auto height based on content */
+        text-align: center;
+    }
+
+    .gravitas-title {
+        font-size: 2.5rem;
+        line-height: 1.2;
+    }
+
+    .divider {
+        margin: 20px auto;
+    }
+
+    .text-side p {
+        font-size: 1rem;
+        text-align: left;
+        /* Keep readable */
+    }
+
+    /* 4. PLANETS / VISUALS */
+    .visual-side {
+        width: 100%;
+        height: 40vh;
+        /* Fixed height for visual area */
+        flex: none;
+        overflow: hidden;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        /* Separator */
+    }
+
+    .big-planet,
+    .saturn-wrapper {
+        width: 250px;
+        /* Much smaller */
+        height: 250px;
+        right: auto;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .saturn-rings {
+        width: 200%;
+        /* Adjust proportionally */
+        height: 200%;
+        top: -50%;
+        left: -50%;
+    }
+
+    /* 5. ASTRONAUT */
+    .astronaut-fixed-wrapper {
+        transform: scale(0.5);
+        /* Half size */
+        bottom: 10px;
+        right: -20px;
+        /* Tuck into corner */
+    }
+
+    /* 6. NAVIGATION */
+    .back-arrow {
+        top: 20px;
+        left: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+        /* Ensure distinct clickable area */
+        background: rgba(0, 0, 0, 0.5);
+    }
+}
