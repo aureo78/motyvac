@@ -8,7 +8,7 @@
 body {
     background-color: #050510;
     color: white;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Lora', serif;
     overflow: hidden;
     min-height: 100vh;
 }
@@ -57,7 +57,7 @@ body {
 }
 
 .main-title {
-    font-family: 'Montserrat', cursive;
+    font-family: 'Lora', serif;
     font-size: 3rem;
     margin-bottom: 40px;
     background: linear-gradient(to right, #fff, #4facfe);
@@ -155,7 +155,7 @@ body {
 }
 
 .gravitas-title {
-    font-family: 'Gravitas One', cursive;
+    font-family: 'Lora', serif;
     font-size: 4.1rem;
     color: #ffffff;
     text-shadow: 0 0 20px rgba(79, 172, 254, 0.8), 0 0 40px rgba(79, 172, 254, 0.4);
@@ -731,7 +731,6 @@ body {
     50% {
         transform: translateY(-20px);
     }
-
 }
 
 /* =========================================
@@ -869,4 +868,3 @@ body {
         background: rgba(0, 0, 0, 0.5);
     }
 }
-
